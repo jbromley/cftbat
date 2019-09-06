@@ -44,6 +44,32 @@
   {:name (clojure.string/replace (:name part) #"^left-" "right-")
    :size (:size part)})
 
+(def asym-alien-body-parts [{:name "head" :size 3}
+                            {:name "1-eye" :size 1}
+                            {:name "1-ear" :size 1}
+                            {:name "mouth" :size 1}
+                            {:name "nose" :size 1}
+                            {:name "neck" :size 2}
+                            {:name "1-side" :size 2}
+                            {:name "1-tentacle" :size 3}
+                            {:name "1-foot" :size 1}])
+
+(defn matching-5-parts
+  "Generate parts for a being with five-fold radial symmetry. Returns a list of parts."
+  [part]
+  (map (fn [part-no] {:name (clojure.string/replace (:name part) #"1-" (str part-no "-"))
+                      :size (:size part)})
+       (range 2 6)))
+
+(defn make-part-matcher
+  "Create a function that will generate body parts with the given radial symmetry."
+  [num-parts]
+  (fn
+    [part]
+    (map (fn [part-no] {:name (clojure.string/replace (:name part) #"1-" (str part-no "-"))
+                        :size (:size part)})
+         (range 2 (inc num-parts)))))
+
 (defn symmetrize-body-parts
   "Takes a seq of maps that have a :name and :size and creates the symmetric counter parts to the parts in the seq."
   [asym-body-parts]
@@ -53,7 +79,7 @@
           asym-body-parts))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Run the exercises from Chapter 2: Do Things"
   [& args]
   (println (str "This is " "two strings concatenated with str."))
   (println (str "(vector 1 2 3) = " (vector 1 2 3)))
