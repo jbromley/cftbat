@@ -1,4 +1,4 @@
-(ns cftbat.core
+(ns do-things.core
   (:gen-class))
 
 (defn add-100
@@ -90,8 +90,3 @@
   (def subtract-13 (dec-maker 13))
   (println "subtract-13 =" (str subtract-13))
   (println "(subtract-13 27) =" (subtract-13 27)))
-
-
-
-
-

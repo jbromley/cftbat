@@ -1,6 +1,6 @@
-(ns cftbat.core-test
+(ns do-things.core-test
   (:require [clojure.test :refer :all]
-            [cftbat.core :refer :all]))
+            [do-things.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
