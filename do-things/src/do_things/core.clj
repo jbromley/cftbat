@@ -72,11 +72,16 @@
 
 (defn symmetrize-body-parts
   "Takes a seq of maps that have a :name and :size and creates the symmetric counter parts to the parts in the seq."
-  [asym-body-parts]
-  (reduce (fn [final-body-parts part]
-            (into final-body-parts (set [part (matching-part part)])))
-          []
-          asym-body-parts))
+  ([asym-body-parts]
+   (reduce (fn [final-body-parts part]
+             (into final-body-parts (set [part (matching-part part)])))
+           []
+           asym-body-parts))
+  ([asym-body-parts matcher-fn]
+   (reduce (fn [final-body-parts part]
+             (into final-body-parts (set (conj (matcher-fn part) part))))
+           []
+           asym-body-parts)))
 
 (defn -main
   "Run the exercises from Chapter 2: Do Things"
@@ -89,4 +94,10 @@
   (println "(map add-100 (range 10)) = " (map add-100 (range 10)))
   (def subtract-13 (dec-maker 13))
   (println "subtract-13 =" (str subtract-13))
-  (println "(subtract-13 27) =" (subtract-13 27)))
+  (println "(subtract-13 27) =" (subtract-13 27))
+  (println "Symmetrize a hobbit body:")
+  (println (symmetrize-body-parts asym-hobbit-body-parts))
+  (println "Symmetrize an alien with five-fold radial symmetry:")
+  (println (symmetrize-body-parts asym-alien-body-parts matching-5-parts))
+  (println "Symmetrize an alien with three-fold radial symmetry using matching creator:")
+  (println (symmetrize-body-parts asym-alien-body-parts (make-part-matcher 3))))
