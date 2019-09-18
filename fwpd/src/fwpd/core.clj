@@ -1,4 +1,5 @@
 (ns fwpd.core
+  (:require clojure.pprint)
   (:gen-class))
 
 (def filename "suspects.csv")
