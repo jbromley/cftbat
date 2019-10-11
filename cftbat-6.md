@@ -63,6 +63,30 @@ When creating apps with lein
 
 ### The `ns` macro
 
-* Can incorporate `require`, `use`, `in-ns`, `alias`, and `refer`
+* Can incorporate `require`, `use`, `in-ns`, `alias`, `refer` as references
+* `:refer-clojure` lets you control what is imported from clojure.core
 * `ns` macro automatically refers `clojure.core`
-* 
+* `:require`
+```
+(ns the-divine-cheese-code.core
+  (:require [the-divine-cheese-code.visualization.svg :as svg]
+            [clojure.java.browse :as browse]))
+```
+is equivalent to
+```
+(in-ns 'the-divine-cheese-code.core)
+(require ['the-divine-cheese-code.visualization.svg :as 'svg])
+(require ['clojure.java.browse :as browse])
+```
+* `:require` allows referring single names from a namespace or `:all`
+* `:use` is not usually seen
+```
+(ns the-divine-cheese-code.core
+  (:use [clojure.java browse io]))
+```
+is equivalent to
+```
+(in-ns 'the-divine-cheese-code.core)
+(use 'clojure.java.browse)
+(use 'clojure.java.io)
+```
